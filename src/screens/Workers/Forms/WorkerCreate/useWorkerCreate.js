@@ -44,15 +44,8 @@ const useWorkerCreate = (props) => {
     name: ["name", "lastName", "birthday"],
   })
 
-  const onSubmit = (value) => {
-    const newVal = {
-      ...value,
-      birthday: moment(value.birthday).format("YYYY/MM/DD"),
-    }
-    console.log(newVal)
-  }
-
-  return { control, onSubmit, formState, handleSubmit }
+ 
+  return { control, formState, handleSubmit }
 }
 
 export default useWorkerCreate

@@ -3,9 +3,10 @@ import { fetchWorkers } from "clients/httpWorkers"
 import { useModal } from "components/Modal"
 import WorkersTable from "components/WorkersTable"
 import WorkerCreate from "./Forms/WorkerCreate"
+import Loading from "components/Loading"
 
 const Workers = () => {
-  const { handleOpenModal /* , handleCloseModal  */ } = useModal()
+  const { handleOpenModal  } = useModal()
   const { isLoading, data: workers } = useQuery("workers", fetchWorkers)
 
   const handleClickFormAdd = () => {
@@ -19,14 +20,17 @@ const Workers = () => {
       },
     })
   }
-
   return (
     <>
-      <WorkersTable
-        data={workers}
-        onClickAdd={handleClickFormAdd}
-        textCta="Agregar empleado"
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <WorkersTable
+          data={workers}
+          onClickAdd={handleClickFormAdd}
+          textCta="Agregar empleado"
+        />
+      )}
     </>
   )
 }

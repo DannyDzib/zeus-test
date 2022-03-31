@@ -7,7 +7,14 @@ class HttpClient {
    * @param url String de consulta http
    * @param request parametros en formato JSON
    */
-  
+  post = async (url, data) => {
+    const options = {
+      method: "POST",
+      data,
+      url,
+    }
+    return await axios(options)
+  }
 
   get = async (url, params) => {
     const response = await axios.get(url, params)

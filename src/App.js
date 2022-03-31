@@ -33,7 +33,7 @@ function App() {
         </ThemeProvider>
         <GlobalStyles styles={styles} />
       </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   )
 }
