@@ -1,48 +1,10 @@
 import { Button, TextField } from "@mui/material"
-import { Controller, useForm, useWatch } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import DatePicker from '@material-ui/pickers'
-import * as yup from "yup"
-import { Box } from "@mui/system"
+import { Controller } from "react-hook-form"
+import { Box } from "@mui/material"
+import useWorkerCreate from "./useWorkerCreate"
 import sx from "./styles"
 const WorkerCreate = () => {
-  const { control, setValue, handleSubmit, formState } = useForm({
-    resolver: yupResolver(
-      yup.object().shape({
-        name: yup
-          .string()
-          .required("El nombre es requerido")
-          .matches(
-            /([a-zA-Z])+([ a-zA-ZÀ-ÖØ-öø-ÿ])+$/,
-            "Debe contener entre la a y la z"
-          )
-          .max(30, "Debe contener maximo 30 caracteres")
-          .min(5, "Debe contener un minimo de 3 caracteres"),
-        lastName: yup
-          .string()
-          .required("Los apellidos son requerido")
-          .matches(
-            /([a-zA-Z])+([ a-zA-ZÀ-ÖØ-öø-ÿ])+$/,
-            "Debe contener entre la a y la z"
-          )
-          .max(30, "Debe contener maximo 30 caracteres")
-          .min(5, "Debe contener un minimo de 3 caracteres"),
-        birthday: yup.date().required(),
-      })
-    ),
-    defaultValues: {
-      year: "",
-      make: "",
-      model: "",
-      version: "",
-    },
-    mode: "onChange",
-  })
-  const [name, lastName, birthday] = useWatch({
-    control,
-    name: ["name", "lastName", "birthday"],
-  })
-
+  const { control, onSubmit, formState, handleSubmit } = useWorkerCreate()
   return (
     <Box>
       <Controller
@@ -52,12 +14,13 @@ const WorkerCreate = () => {
           <TextField
             {...field}
             sx={sx.field}
-            placeholder="Nombre"
-            label={`Nombre*`}
+            placeholder="Nombre(s)"
+            label={`Nombre(s)*`}
             value={field.value}
-            isAllowed={({ value }) => value.length <= 5}
+            isallowed={({ value }) => value.length <= 5}
             onChange={field.onChange}
             fullWidth
+            helperText={fieldState?.error?.message || ""}
             error={fieldState.invalid}
           />
         )}
@@ -72,9 +35,10 @@ const WorkerCreate = () => {
             placeholder="Apellidos"
             label={`Apellidos*`}
             value={field.value}
-            isAllowed={({ value }) => value.length <= 5}
+            isallowed={({ value }) => value.length <= 5}
             onChange={field.onChange}
             fullWidth
+            helperText={fieldState?.error?.message || ""}
             error={fieldState.invalid}
           />
         )}
@@ -83,21 +47,28 @@ const WorkerCreate = () => {
         name="birthday"
         control={control}
         render={({ field, fieldState }) => (
-          <DatePicker
+          <TextField
             {...field}
             sx={sx.field}
+            fullWidth
+            type="date"
             placeholder="Fecha de nacimiento"
             label={`Fecha de nacimiento*`}
             value={field.value}
-            fullWidth
+            isallowed={({ value }) => value.length <= 5}
             onChange={field.onChange}
+            helperText={fieldState?.error?.message || ""}
             error={fieldState.invalid}
-            isAllowed={({ value }) => value.length <= 5}
-            renderInput={(params) => <TextField {...params} />}
           />
         )}
       />
-      <Button variant="contained" color="secondary" sx={sx.cta}>
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={sx.cta}
+        onClick={handleSubmit(onSubmit)}
+        disabled={!formState.isValid}
+      >
         Guardar
       </Button>
     </Box>

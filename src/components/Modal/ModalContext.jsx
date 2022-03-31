@@ -9,7 +9,6 @@ export const initialState = {
   configProps: {
     maxWidth: false, // oneOf ["lg","md","sm","xl","xs",false]
     className: null,
-    titleClassName: '',
     showDividers: false,
     scroll: 'paper', // oneOf ["paper", "body"]
     showClose: false,

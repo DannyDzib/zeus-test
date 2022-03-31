@@ -3,8 +3,6 @@ import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { GlobalStyles } from "@mui/styled-engine"
-import { LocalizationProvider } from "@material-ui/pickers"
-import MomentUtils from "@material-ui/pickers/adapter/moment"
 import { ModalProvider } from "components/Modal/ModalProvider"
 import { Modal } from "components/Modal"
 import Layout from "components/Layout"
@@ -18,22 +16,20 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider theme={createTheme(theme)}>
-          <LocalizationProvider dateAdapter={MomentUtils}>
-            <ModalProvider>
-              <Modal />
-              <Layout>
-                <Routes>
-                  {routes.map((route, index) => (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      element={<route.component />}
-                    />
-                  ))}
-                </Routes>
-              </Layout>
-            </ModalProvider>
-          </LocalizationProvider>
+          <ModalProvider>
+            <Modal />
+            <Layout>
+              <Routes>
+                {routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={<route.component />}
+                  />
+                ))}
+              </Routes>
+            </Layout>
+          </ModalProvider>
         </ThemeProvider>
         <GlobalStyles styles={styles} />
       </BrowserRouter>
