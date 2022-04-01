@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import { Link as RouterLink } from "react-router-dom"
 import routes from "navigation/routes"
-import sx from './styles'
+import sx from "./styles"
 export default function ButtonAppBar() {
   return (
     <Container maxWidth="lg" sx={sx.container}>
@@ -20,16 +20,19 @@ export default function ButtonAppBar() {
           >
             Zeus
           </Typography>
-          {routes.map((route, index) => (
-            <Button
-              component={RouterLink}
-              to={route.path}
-              key={index}
-              color="secondary"
-            >
-              {route.name}
-            </Button>
-          ))}
+          {routes.map(
+            (route, index) =>
+              !route.isRedirec && (
+                <Button
+                  component={RouterLink}
+                  to={route.path}
+                  key={index}
+                  color="secondary"
+                >
+                  {route.name}
+                </Button>
+              )
+          )}
         </Toolbar>
       </AppBar>
     </Container>

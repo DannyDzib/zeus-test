@@ -21,11 +21,7 @@ function App() {
             <Layout>
               <Routes>
                 {routes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={<route.component />}
-                  />
+                  <Route key={index} {...route} />
                 ))}
               </Routes>
             </Layout>
