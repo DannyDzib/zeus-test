@@ -38,9 +38,7 @@ const WorkersTable = (props) => {
           onChange={(searchVal) => requestSearch(searchVal.target.value)}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton edge="end">
-                <SearchOutlinedIcon />
-              </IconButton>
+              <SearchOutlinedIcon />
             </InputAdornment>
           }
         />
