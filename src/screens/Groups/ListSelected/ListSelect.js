@@ -27,7 +27,12 @@ export default function Card(props) {
   return (
     <Droppable droppableId="groups-selected">
       {(droppableProvider) => (
-        <Grid xs={12} sm={6} item>
+        <Grid
+          xs={12}
+          sm={6}
+          item
+          sx={{ border: "1px solid grey", borderRadius: 2 }}
+        >
           <List
             ref={droppableProvider.innerRef}
             {...droppableProvider.droppableProps}
