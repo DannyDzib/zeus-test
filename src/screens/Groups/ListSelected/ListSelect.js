@@ -10,7 +10,7 @@ import { Grid } from "@mui/material"
 
 export default function Card(props) {
   const [checked, setChecked] = useState([0])
-  const { task } = props
+  const { groups } = props
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value)
@@ -37,8 +37,8 @@ export default function Card(props) {
             ref={droppableProvider.innerRef}
             {...droppableProvider.droppableProps}
           >
-            {task.map((item, index) => (
-              <ListItem disablePadding>
+            {groups.map((item, index) => (
+              <ListItem key={index} disablePadding>
                 <ListItemButton
                   role={undefined}
                   onClick={handleToggle(item.id)}

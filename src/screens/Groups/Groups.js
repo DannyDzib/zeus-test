@@ -8,7 +8,6 @@ import { fetchGroups } from "clients/httpGroups"
 import Loading from "components/Loading"
 import {
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -23,24 +22,18 @@ const Groups = () => {
     setGroups(data || [])
   }, [data])
   const onDragEnd = (val) => {
-    const { draggableId, source, destination } = val
-
-    if (destination.droppableId === "groups-selected" && groups.length) {
+    const { draggableId, destination } = val
+    const isExisting = groupsSelected.find((item) => item.id == draggableId)
+    if (destination.droppableId === "groups-selected" && groups.length && !isExisting) {
       const draggableChange = groups.find((item) => item.id == draggableId)
-      const groupDescart = groups.filter((item) => item.id != draggableId)
       setGroupsSelected([...groupsSelected, draggableChange])
-      setGroups([...groupDescart])
     }
   }
 
   const requestSearch = (searchedVal) => {
-    const groupsCopy = [...groups]
-    const filteredGroups = groups.filter((row) => {
-      return row.name.toLowerCase().includes(searchedVal.toLowerCase())
-    })
-    const filterGroup =
-      searchedVal && groups.length ? filteredGroups : groupsCopy
-    setGroups(filterGroup)
+    const groupsCopy = groups
+    console.log(groupsCopy)
+    console.log(groupsCopy)
   }
 
   return (
@@ -63,8 +56,8 @@ const Groups = () => {
           </FormControl>
           <DragDropContext onDragEnd={onDragEnd}>
             <Grid container>
-              {groups.length && <ListTodo task={groups} />}
-              <ListSelected task={groupsSelected} />
+              <ListTodo groups={groups} />
+              <ListSelected groups={groupsSelected} />
             </Grid>
           </DragDropContext>
         </>

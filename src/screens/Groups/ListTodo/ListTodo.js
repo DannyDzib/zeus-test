@@ -1,22 +1,21 @@
-import { useState } from "react"
 import { List, ListItem, ListItemText, Grid } from "@mui/material"
 import { Droppable, Draggable } from "react-beautiful-dnd"
 
-export default function Card(props) {
-  const { task } = props
+const ListTodo = (props) => {
+  const { groups } = props
   return (
-    <Droppable droppableId="group">
-      {(droppableProvider) => (
-        <Grid xs={12} sm={6} item>
+    <Grid xs={12} sm={6} item>
+      <Droppable droppableId="group">
+        {(droppableProvider) => (
           <List
             ref={droppableProvider.innerRef}
             {...droppableProvider.droppableProps}
           >
-            {task.map((item, index) => (
+            {groups.map((item, index) => (
               <Draggable
                 draggableId={item.id.toString()}
                 key={item.id}
-                index={item.id}
+                index={index}
               >
                 {(draggableProvider, snapshot) => (
                   <ListItem
@@ -30,10 +29,12 @@ export default function Card(props) {
                 )}
               </Draggable>
             ))}
+            {droppableProvider.placeholder}
           </List>
-          {droppableProvider.placeholder}
-        </Grid>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+    </Grid>
   )
 }
+
+export default ListTodo
